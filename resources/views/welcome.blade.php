@@ -16,8 +16,8 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
     <body>
-        <div id="app" class="container">
-            <h1>Nuevo proyecto</h1>
+        <div id="app">
+            <app-component></app-component>
         </div>
 
         <!-- Scripts compiled-->
