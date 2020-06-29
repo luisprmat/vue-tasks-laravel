@@ -2,20 +2,11 @@
     <div class="container">
         <h2>Tareas</h2>
 
-        <ul class="list-group tasks">
-            <app-task v-for="task in tasks"
-                :task="task"
-                :key="task.id"
-                @remove="deleteTask"
-            ></app-task>
-        </ul>
+        <app-task-list :tasks="tasks"></app-task-list>
 
         <p><a @click.prevent="deleteCompleted" href="#" class="btn btn-light">Eliminar tareas completadas</a></p>
 
-        <form @submit.prevent="createTask" class="new-task-form" action="#">
-            <input v-model="new_task" type="text" class="form-control">
-            <button type="submit" class="btn btn-primary">Crear tarea</button>
-        </form>
+        <app-task-form @created="createTask"></app-task-form>
 
         <!-- <pre class="code pre-scrollable">{{ $data }}</pre> -->
 
@@ -26,11 +17,13 @@
 </template>
 
 <script>
-import Task from './components/Task'
+import TaskList from './components/TaskList'
+import TaskForm from './components/TaskForm'
 
 export default {
     components: {
-        'app-task': Task
+        'app-task-list': TaskList,
+        'app-task-form': TaskForm
     },
     data() {
         return {
@@ -51,22 +44,12 @@ export default {
                     description: 'Grabar lección de Vue',
                     pending: false,
                 }
-            ]
+            ],
         }
     },
     methods: {
-        createTask() {
-            this.tasks.push({
-                description: this.new_task,
-                pending: true,
-                editing: false
-            });
-
-            this.new_task = '';
-        },
-        deleteTask(index) {
-            const position = this.tasks.map(el => el.id).indexOf(index)
-            this.tasks.splice(position, 1)
+        createTask(task) {
+            this.tasks.push(task)
         },
         deleteCompleted() {
             this.tasks = this.tasks.filter(task => task.pending);
