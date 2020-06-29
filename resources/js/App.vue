@@ -3,8 +3,11 @@
         <h2>Tareas</h2>
 
         <ul class="list-group tasks">
-            <li is="app-task" v-for="(task, index) in tasks"
-            :task="task" :index="index" :key="task.id" @remove="deleteTask"></li>
+            <app-task v-for="task in tasks"
+                :task="task"
+                :key="task.id"
+                @remove="deleteTask"
+            ></app-task>
         </ul>
 
         <p><a @click.prevent="deleteCompleted" href="#" class="btn btn-light">Eliminar tareas completadas</a></p>
@@ -34,14 +37,17 @@ export default {
             new_task: '',
             tasks: [
                 {
+                    id: 1,
                     description: 'Aprender Vue.js',
                     pending: true,
                 },
                 {
+                    id: 2,
                     description: 'Suscribirse en Styde',
                     pending: true,
                 },
                 {
+                    id: 4,
                     description: 'Grabar lección de Vue',
                     pending: false,
                 }
@@ -59,12 +65,11 @@ export default {
             this.new_task = '';
         },
         deleteTask(index) {
-            this.tasks.splice(index, 1);
+            const position = this.tasks.map(el => el.id).indexOf(index)
+            this.tasks.splice(position, 1)
         },
         deleteCompleted() {
-            this.tasks = this.tasks.filter(function (task) {
-                return task.pending;
-            });
+            this.tasks = this.tasks.filter(task => task.pending);
         }
     }
 }

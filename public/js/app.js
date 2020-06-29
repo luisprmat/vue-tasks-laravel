@@ -1933,6 +1933,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -1942,12 +1945,15 @@ __webpack_require__.r(__webpack_exports__);
     return {
       new_task: '',
       tasks: [{
+        id: 1,
         description: 'Aprender Vue.js',
         pending: true
       }, {
+        id: 2,
         description: 'Suscribirse en Styde',
         pending: true
       }, {
+        id: 4,
         description: 'Grabar lección de Vue',
         pending: false
       }]
@@ -1963,7 +1969,10 @@ __webpack_require__.r(__webpack_exports__);
       this.new_task = '';
     },
     deleteTask: function deleteTask(index) {
-      this.tasks.splice(index, 1);
+      var position = this.tasks.map(function (el) {
+        return el.id;
+      }).indexOf(index);
+      this.tasks.splice(position, 1);
     },
     deleteCompleted: function deleteCompleted() {
       this.tasks = this.tasks.filter(function (task) {
@@ -2087,20 +2096,22 @@ __webpack_require__.r(__webpack_exports__);
       draft: ''
     };
   },
-  props: ['task', 'index'],
+  props: ['task'],
   created: function created() {
+    var _this = this;
+
     _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$on('editing', function (index) {
-      if (this.index != index) {
-        this.discard();
+      if (_this.task.id != index) {
+        _this.discard();
       }
-    }.bind(this));
+    });
   },
   methods: {
     toggleStatus: function toggleStatus() {
       this.task.pending = !this.task.pending;
     },
     edit: function edit() {
-      _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('editing', this.index);
+      _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('editing', this.task.id);
       this.draft = this.task.description;
       this.editing = true;
     },
@@ -2112,7 +2123,7 @@ __webpack_require__.r(__webpack_exports__);
       this.editing = false;
     },
     remove: function remove() {
-      this.$emit('remove', this.index);
+      this.$emit('remove', this.task.id);
     }
   }
 });
@@ -37668,11 +37679,10 @@ var render = function() {
     _c(
       "ul",
       { staticClass: "list-group tasks" },
-      _vm._l(_vm.tasks, function(task, index) {
+      _vm._l(_vm.tasks, function(task) {
         return _c("app-task", {
           key: task.id,
-          tag: "li",
-          attrs: { task: task, index: index },
+          attrs: { task: task },
           on: { remove: _vm.deleteTask }
         })
       }),
@@ -50273,14 +50283,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************!*\
   !*** ./resources/js/components/Task.vue ***!
   \******************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Task_vue_vue_type_template_id_e9a53c20___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Task.vue?vue&type=template&id=e9a53c20& */ "./resources/js/components/Task.vue?vue&type=template&id=e9a53c20&");
 /* harmony import */ var _Task_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Task.vue?vue&type=script&lang=js& */ "./resources/js/components/Task.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Task_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Task_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50310,7 +50321,7 @@ component.options.__file = "resources/js/components/Task.vue"
 /*!*******************************************************************!*\
   !*** ./resources/js/components/Task.vue?vue&type=script&lang=js& ***!
   \*******************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -45,20 +45,20 @@ export default {
             draft: '',
         };
     },
-    props: ['task', 'index'],
+    props: ['task'],
     created() {
-        EventBus.$on('editing', function (index) {
-            if (this.index != index) {
+        EventBus.$on('editing', (index) => {
+            if (this.task.id != index) {
                 this.discard();
             }
-        }.bind(this));
+        });
     },
     methods: {
         toggleStatus() {
             this.task.pending = !this.task.pending;
         },
         edit() {
-            EventBus.$emit('editing', this.index);
+            EventBus.$emit('editing', this.task.id);
 
             this.draft = this.task.description;
 
@@ -73,7 +73,7 @@ export default {
             this.editing = false;
         },
         remove() {
-            this.$emit('remove', this.index);
+            this.$emit('remove', this.task.id);
         },
     }
 }
