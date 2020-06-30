@@ -30,13 +30,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .new-task-form {
         display: flex;
-    }
 
-    .new-task-form input {
-        margin-right: 10px;
+        input {
+            margin-right: 10px;
+        }
     }
 
     form > button {

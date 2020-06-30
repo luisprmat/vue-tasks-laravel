@@ -79,38 +79,40 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .task-list-item {
         display: flex;
         justify-content: space-between;
-    }
 
-    .task-list-item a {
-        text-decoration: none;
-    }
+        a {
+            text-decoration: none;
+        }
 
-    .task-list-item.editing {
-        box-shadow: inset 0 0 5px #999;
-    }
+        &.editing {
+            box-shadow: inset 0 0 5px #999;
+        }
 
-    .task-list-item input, .task-list-item .description {
-        flex: 1;
-        padding: 0 5px;
-    }
+        input, .description {
+            flex: 1;
+            padding: 0 5px;
+        }
 
-    .task-list-item input {
-        border: 0;
-    }
+        input {
+            border: 0;
 
-    .task-list-item input:focus {
-        outline: none;
-    }
+            &:focus {
+                outline: none;
+            }
+        }
 
-    .task-list-item.completed .description {
-        text-decoration: line-through;
-    }
+        &.completed {
+            &, a {
+                color: #999;
+            }
 
-    .task-list-item.completed, .task-list-item.completed a {
-        color: #999;
+            .description {
+                text-decoration: line-through;
+            }
+        }
     }
 </style>

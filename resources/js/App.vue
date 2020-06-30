@@ -56,27 +56,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     body {
         margin: 10px;
     }
 
     .container {
         max-width: 670px;
-    }
 
-    .container h2 {
-        margin-bottom: 20px;
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            margin: 40px 0;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            color: lightslategrey;
+        }
     }
 
     .code {
         background-color: lightgray;
-    }
-
-    .container footer {
-        margin: 40px 0;
-        padding-top: 20px;
-        border-top: 1px solid #ccc;
-        color: lightslategrey;
     }
 </style>

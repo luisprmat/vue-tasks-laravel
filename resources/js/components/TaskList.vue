@@ -35,10 +35,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .tasks-list {
         margin-bottom: 40px;
     }
+
     .subtitle-mark {
         color: red;
     }
