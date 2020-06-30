@@ -41,7 +41,7 @@ export default {
     }
 
     .subtitle-mark {
-        color: red;
+        color: #41b883;
     }
 </style>
 

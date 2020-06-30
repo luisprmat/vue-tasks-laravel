@@ -6700,7 +6700,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".tasks-list {\n  margin-bottom: 40px;\n}\n.subtitle-mark {\n  color: red;\n}", ""]);
+exports.push([module.i, ".tasks-list {\n  margin-bottom: 40px;\n}\n.subtitle-mark {\n  color: #41b883;\n}", ""]);
 
 // exports
 
