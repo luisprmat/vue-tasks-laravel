@@ -1,7 +1,5 @@
 <template>
     <div class="container">
-        <h2>Tareas</h2>
-
         <app-task-list :tasks="tasks"></app-task-list>
 
         <p><a @click.prevent="deleteCompleted" href="#" class="btn btn-light">Eliminar tareas completadas</a></p>

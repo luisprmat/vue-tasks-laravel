@@ -1,8 +1,12 @@
 <template>
-    <form @submit.prevent="create" class="new-task-form" action="#">
-        <input v-model="draft" type="text" class="form-control">
-        <button type="submit" class="btn btn-primary">Crear tarea</button>
-    </form>
+    <div>
+        <h2 class="subtitle">Nueva tarea:</h2>
+
+        <form @submit.prevent="create" class="new-task-form" action="#">
+            <input v-model="draft" type="text" class="form-control">
+            <button type="submit" class="btn btn-primary">Crear tarea</button>
+        </form>
+    </div>
 </template>
 
 <script>

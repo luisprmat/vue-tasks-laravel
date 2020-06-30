@@ -1926,8 +1926,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2129,6 +2127,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2169,6 +2171,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2181,6 +2188,13 @@ __webpack_require__.r(__webpack_exports__);
         return el.id;
       }).indexOf(index);
       this.tasks.splice(position, 1);
+    }
+  },
+  computed: {
+    hasPendingTasks: function hasPendingTasks() {
+      return this.tasks.some(function (task) {
+        return task.pending;
+      });
     }
   }
 });
@@ -6686,7 +6700,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tasks-list {\n    margin-bottom: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.tasks-list {\n    margin-bottom: 40px;\n}\n.subtitle-mark {\n    color: red;\n}\n", ""]);
 
 // exports
 
@@ -38526,8 +38540,6 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("h2", [_vm._v("Tareas")]),
-      _vm._v(" "),
       _c("app-task-list", { attrs: { tasks: _vm.tasks } }),
       _vm._v(" "),
       _c("p", [
@@ -38713,48 +38725,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      staticClass: "new-task-form",
-      attrs: { action: "#" },
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.create($event)
-        }
-      }
-    },
-    [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.draft,
-            expression: "draft"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text" },
-        domProps: { value: _vm.draft },
+  return _c("div", [
+    _c("h2", { staticClass: "subtitle" }, [_vm._v("Nueva tarea:")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "new-task-form",
+        attrs: { action: "#" },
         on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.draft = $event.target.value
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.create($event)
           }
         }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [_vm._v("Crear tarea")]
-      )
-    ]
-  )
+      },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.draft,
+              expression: "draft"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text" },
+          domProps: { value: _vm.draft },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.draft = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("Crear tarea")]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38778,18 +38794,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "ul",
-    { staticClass: "list-group tasks-list" },
-    _vm._l(_vm.tasks, function(task) {
-      return _c("app-task", {
-        key: task.id,
-        attrs: { task: task },
-        on: { remove: _vm.deleteTask }
-      })
-    }),
-    1
-  )
+  return _c("div", [
+    _c("h2", { class: { "subtitle-mark": _vm.hasPendingTasks } }, [
+      _vm._v("Tareas")
+    ]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "list-group tasks-list" },
+      _vm._l(_vm.tasks, function(task) {
+        return _c("app-task", {
+          key: task.id,
+          attrs: { task: task },
+          on: { remove: _vm.deleteTask }
+        })
+      }),
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
