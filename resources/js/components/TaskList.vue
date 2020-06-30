@@ -1,5 +1,5 @@
 <template>
-    <ul class="list-group tasks">
+    <ul class="list-group tasks-list">
         <app-task v-for="task in tasks"
             :task="task"
             :key="task.id"
@@ -26,5 +26,7 @@ export default {
 </script>
 
 <style>
-
+    .tasks-list {
+        margin-bottom: 40px;
+    }
 </style>

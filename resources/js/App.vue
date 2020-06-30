@@ -57,3 +57,28 @@ export default {
     }
 }
 </script>
+
+<style>
+    body {
+        margin: 10px;
+    }
+
+    .container {
+        max-width: 670px;
+    }
+
+    .container h2 {
+        margin-bottom: 20px;
+    }
+
+    .code {
+        background-color: lightgray;
+    }
+
+    .container footer {
+        margin: 40px 0;
+        padding-top: 20px;
+        border-top: 1px solid #ccc;
+        color: lightslategrey;
+    }
+</style>
