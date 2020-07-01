@@ -1,29 +1,36 @@
-<template>
-    <div v-if="task">
-        <h2 class="subtitle">Editar tarea:</h2>
-
-        <form @submit.prevent="update" action="#">
-            <div class="form-group">
-                <label for="title">Título</label>
-                <input v-model="task.title" id="title" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label for="description">Descripción</label>
-                <textarea v-model="task.description" id="description" rows="6" class="form-control"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Actualizar tarea</button>
-            <button class="btn btn-outline-secondary" @click="$router.push({ name: 'tasks' })">Cancelar</button>
-        </form>
-    </div>
-</template>
-
 <script>
 import store from '../../store'
+import Form from './Form'
 
 export default {
     props: ['id'],
+    render(h) {
+        if (! this.task) {
+            return h('app-spinner', {
+                props: {
+                    msg: 'Cargando tarea ...'
+                }
+            })
+        }
+
+        return h(Form, {
+            props: {
+                title: 'Editar tarea',
+                action: 'Actualizar tarea',
+                task: this.task
+            },
+            on: {
+                save: (draft) => {
+                    store.updateTask(this.id, draft)
+
+                    this.$router.push({
+                        name: 'tasks.details',
+                        params: { id: this.id }
+                    })
+                }
+            }
+        })
+    },
     data() {
         return {
             task: null
@@ -37,22 +44,12 @@ export default {
     },
     methods: {
         findTask() {
-            this.task = clone(store.findTask(this.id))
+            setTimeout(() => {
+                this.task = clone(store.findTask(this.id))
 
-            not_found_unless(this.task)
+                not_found_unless(this.task)
+            }, 1000)
         },
-        update() {
-            store.updateTask(this.id, this.task)
-
-            this.$router.push({
-                name: 'tasks.details',
-                params: { id: this.id }
-            })
-        }
     }
 }
 </script>
-
-<style>
-
-</style>

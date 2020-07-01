@@ -42,6 +42,7 @@ window.clone = function (obj) {
 
 Vue.component('app-component', require('./App.vue').default);
 Vue.component('app-icon', require('./components/Icon.vue').default);
+Vue.component('app-spinner', require('./components/Spinner.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

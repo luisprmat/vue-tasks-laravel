@@ -3,7 +3,7 @@ import store from '../../store'
 import Form from './Form'
 
 export default {
-    render(createElement) {
+    render(h) {
         let task = {
             id: '',
             title: '',
@@ -11,7 +11,7 @@ export default {
             pending: true
         }
 
-        return createElement(Form, {
+        return h(Form, {
             props: {
                 title: 'Nueva tarea',
                 action: 'Crear tarea',
@@ -32,8 +32,3 @@ export default {
 }
 </script>
 
-<style lang="scss">
-    form > button {
-        white-space: nowrap;
-    }
-</style>
