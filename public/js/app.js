@@ -2063,14 +2063,34 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../store */ "./resources/js/store/index.js");
 //
 //
 //
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id']
+  props: ['id'],
+  data: function data() {
+    return {
+      task: null
+    };
+  },
+  created: function created() {
+    this.findTask();
+  },
+  watch: {
+    id: 'findTask'
+  },
+  methods: {
+    findTask: function findTask() {
+      this.task = _store__WEBPACK_IMPORTED_MODULE_0__["default"].findTask(this.id);
+    }
+  }
 });
 
 /***/ }),
@@ -2173,8 +2193,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./List */ "./resources/js/components/Task/List.vue");
-/* harmony import */ var _CreateForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateForm */ "./resources/js/components/Task/CreateForm.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../store */ "./resources/js/store/index.js");
+/* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./List */ "./resources/js/components/Task/List.vue");
+/* harmony import */ var _CreateForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CreateForm */ "./resources/js/components/Task/CreateForm.vue");
 //
 //
 //
@@ -2187,29 +2208,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    'task-list': _List__WEBPACK_IMPORTED_MODULE_0__["default"],
-    'task-form': _CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"]
+    'task-list': _List__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'task-form': _CreateForm__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
       new_task: '',
-      tasks: [{
-        id: 1,
-        description: 'Aprender Vue.js',
-        pending: true
-      }, {
-        id: 2,
-        description: 'Suscribirse en Styde',
-        pending: true
-      }, {
-        id: 4,
-        description: 'Grabar lección de Vue',
-        pending: false
-      }]
+      tasks: _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tasks
     };
   },
   methods: {
@@ -38817,7 +38827,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h2", [_vm._v("Detalle de la tarea " + _vm._s(_vm.id))])
+    _c("h2", [_vm._v(_vm._s(_vm.task.title))]),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.task.description))])
   ])
 }
 var staticRenderFns = []
@@ -38911,7 +38923,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("span", { staticClass: "description" }, [
-        _vm._v(_vm._s(_vm.task.description))
+        _vm._v(_vm._s(_vm.task.title))
       ])
     ]
   )
@@ -54947,6 +54959,44 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
+
+/***/ }),
+
+/***/ "./resources/js/store/index.js":
+/*!*************************************!*\
+  !*** ./resources/js/store/index.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var tasks = [{
+  id: 1,
+  title: 'Aprender Vue.js',
+  description: "\n            Es un framework progresivo que nos permite construir desde peque\xF1os\n            componentes hasta una SPA (Single Page Aplication) usando componentes\n            especializados como Vue-router y Vuex",
+  pending: true
+}, {
+  id: 2,
+  title: 'Suscribirse en Styde',
+  description: "\n            Es una plataforma de aprendizaje en linea a trav\xE9s de tutoriales y\n            videotutoriales en espa\xF1ol para aprender tecnolog\xEDas de desarrollo web tales\n            como PHP, Laravel, Vue.js, Sass, Docker, entre otras.",
+  pending: true
+}, {
+  id: 4,
+  title: 'Aprender Sass',
+  description: "\n            Es un preprocesador de CSS que le a\xF1ade superpoderes como lo dice la documentaci\xF3n\n            maneja variables y la sintaxis de un lengueje de programaci\xF3n, adem\xE1s que permite\n            modularizar y organizar el c\xF3digo de manera muy eficiente.",
+  pending: false
+}];
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    tasks: tasks
+  },
+  findTask: function findTask(id) {
+    return this.state.tasks.find(function (task) {
+      return task.id == id;
+    });
+  }
+});
 
 /***/ }),
 

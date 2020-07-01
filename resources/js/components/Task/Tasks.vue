@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import store from '../../store'
 import TaskList from './List'
 import CreateForm from './CreateForm'
 
@@ -22,23 +23,7 @@ export default {
     data() {
         return {
             new_task: '',
-            tasks: [
-                {
-                    id: 1,
-                    description: 'Aprender Vue.js',
-                    pending: true,
-                },
-                {
-                    id: 2,
-                    description: 'Suscribirse en Styde',
-                    pending: true,
-                },
-                {
-                    id: 4,
-                    description: 'Grabar lección de Vue',
-                    pending: false,
-                }
-            ],
+            tasks: store.state.tasks
         }
     },
     methods: {

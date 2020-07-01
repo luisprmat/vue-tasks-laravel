@@ -5,7 +5,7 @@
             <app-icon :img="task.pending ? 'unchecked' : 'check'"></app-icon>
         </a>
 
-        <span  class="description">{{ task.description }}</span>
+        <span  class="description">{{ task.title }}</span>
     </li>
 </template>
 
