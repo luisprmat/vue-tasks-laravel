@@ -1,12 +1,17 @@
 <template>
-    <div>
-        <task-list :tasks="tasks"></task-list>
+    <div class="row">
+        <div class="col-md-6">
+            <task-list :tasks="tasks"></task-list>
 
-        <p><a @click.prevent="deleteCompleted" href="#" class="btn btn-light">Eliminar tareas completadas</a></p>
+            <p><a @click.prevent="deleteCompleted" href="#" class="btn btn-light">
+                Eliminar tareas completadas
+            </a></p>
+        </div>
+        <div class="col-md-6">
+            <router-view></router-view>
+        </div>
 
-        <task-form @created="createTask"></task-form>
-
-        <!-- <pre class="code pre-scrollable">{{ $data }}</pre> -->
+        <!-- <task-form @created="createTask"></task-form> -->
     </div>
 </template>
 
@@ -36,9 +41,3 @@ export default {
     }
 }
 </script>
-
-<style>
-    .code {
-        background-color: lightgray;
-    }
-</style>
