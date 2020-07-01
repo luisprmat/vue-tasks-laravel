@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1>Panel de control</h1>
+        <h2>Panel de control</h2>
+
+        <p>Bienvenidos a nuestra SPA</p>
     </div>
 </template>
 

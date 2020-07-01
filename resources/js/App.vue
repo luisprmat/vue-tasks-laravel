@@ -1,9 +1,15 @@
 <template>
     <div class="container">
-        <h1>Aprendiendo Vue</h1>
+        <h1 mb-4>Aprendiendo Vue</h1>
 
-        <router-link to="/">Dashboard</router-link>
-        <router-link to="/tasks">Tareas</router-link>
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <router-link class="nav-link" active-class="active" exact to="/">Dashboard</router-link>
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" active-class="active" to="/tasks">Tareas</router-link>
+            </li>
+        </ul>
 
         <router-view></router-view>
 

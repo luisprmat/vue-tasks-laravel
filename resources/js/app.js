@@ -19,27 +19,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-import Router from 'vue-router'
+import router from './router'
 import EventBus from './event-bus'
-import Tasks from './components/Task/Tasks'
-import Dashboard from './components/Dashboard'
 
 window.EventBus = EventBus
-
-Vue.use(Router)
-
-var router = new Router({
-    routes: [
-        {
-            path: '/',
-            component: Dashboard
-        },
-        {
-            path: '/tasks',
-            component: Tasks
-        }
-    ]
-})
 
 Vue.component('app-component', require('./App.vue').default);
 

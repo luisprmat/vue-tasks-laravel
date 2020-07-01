@@ -1923,6 +1923,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({//
 });
 
@@ -1937,6 +1943,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -38632,11 +38640,41 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("h1", [_vm._v("Aprendiendo Vue")]),
+      _c("h1", { attrs: { "mb-4": "" } }, [_vm._v("Aprendiendo Vue")]),
       _vm._v(" "),
-      _c("router-link", { attrs: { to: "/" } }, [_vm._v("Dashboard")]),
-      _vm._v(" "),
-      _c("router-link", { attrs: { to: "/tasks" } }, [_vm._v("Tareas")]),
+      _c("ul", { staticClass: "nav nav-tabs mb-4" }, [
+        _c(
+          "li",
+          { staticClass: "nav-item" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "nav-link",
+                attrs: { "active-class": "active", exact: "", to: "/" }
+              },
+              [_vm._v("Dashboard")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          { staticClass: "nav-item" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "nav-link",
+                attrs: { "active-class": "active", to: "/tasks" }
+              },
+              [_vm._v("Tareas")]
+            )
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c("router-view"),
       _vm._v(" "),
@@ -38683,7 +38721,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Panel de control")])])
+    return _c("div", [
+      _c("h2", [_vm._v("Panel de control")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Bienvenidos a nuestra SPA")])
+    ])
   }
 ]
 render._withStripped = true
@@ -54266,10 +54308,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event-bus */ "./resources/js/event-bus.js");
-/* harmony import */ var _components_Task_Tasks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Task/Tasks */ "./resources/js/components/Task/Tasks.vue");
-/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Dashboard */ "./resources/js/components/Dashboard.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -54290,19 +54330,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-
-
 window.EventBus = _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"];
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  routes: [{
-    path: '/',
-    component: _components_Dashboard__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }, {
-    path: '/tasks',
-    component: _components_Task_Tasks__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }]
-});
 Vue.component('app-component', __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -54312,7 +54340,7 @@ Vue.component('app-component', __webpack_require__(/*! ./App.vue */ "./resources
 
 var app = new Vue({
   el: '#app',
-  router: router
+  router: _router__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
 
 /***/ }),
@@ -54861,6 +54889,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (new vue__WEBPACK_IMPORTED_MODULE_0___default.a());
+
+/***/ }),
+
+/***/ "./resources/js/router/index.js":
+/*!**************************************!*\
+  !*** ./resources/js/router/index.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_Task_Tasks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Task/Tasks */ "./resources/js/components/Task/Tasks.vue");
+/* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Dashboard */ "./resources/js/components/Dashboard.vue");
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  routes: [{
+    path: '/',
+    component: _components_Dashboard__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }, {
+    path: '/tasks',
+    component: _components_Task_Tasks__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }]
+});
+/* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
 
