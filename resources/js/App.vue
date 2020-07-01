@@ -2,7 +2,10 @@
     <div class="container">
         <h1>Aprendiendo Vue</h1>
 
-        <app-tasks></app-tasks>
+        <router-link to="/">Dashboard</router-link>
+        <router-link to="/tasks">Tareas</router-link>
+
+        <router-view></router-view>
 
         <footer class="footer">
             <p>&copy; 2020. Luis Parrado. Derechos reservados</p>
@@ -11,12 +14,8 @@
 </template>
 
 <script>
-import Tasks from './components/Task/Task'
-
 export default {
-    components: {
-        'app-tasks': Tasks
-    }
+    //
 }
 </script>
 
