@@ -34,5 +34,12 @@ export default {
     },
     findTask(id) {
         return this.state.tasks.find(task => task.id == id)
+    },
+    createTask(task) {
+        task.id = this.state.tasks.length + 1000 //FIX
+
+        // task.pending = true
+
+        this.state.tasks.push(task)
     }
 }

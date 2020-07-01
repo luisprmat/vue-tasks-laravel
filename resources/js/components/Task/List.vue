@@ -1,35 +1,50 @@
 <template>
-<div>
-    <h2 :class="{'subtitle-mark': hasPendingTasks}">Tareas</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-baseline">
+                <h2 :class="{'subtitle-mark': hasPendingTasks}">Tareas</h2>
+                <router-link :to="{name: 'tasks.create'}">Nueva tarea</router-link>
+            </div>
 
-    <ul class="list-group tasks-list">
-        <list-item v-for="task in tasks"
-            :task="task"
-            :key="task.id"
-            @remove="deleteTask"
-        ></list-item>
-    </ul>
-</div>
+            <ul class="list-group tasks-list">
+                <task-item v-for="task in tasks" :task="task" :key="task.id"></task-item>
+            </ul>
 
+            <p><a @click.prevent="deleteCompleted" href="#" class="btn btn-light">
+                Eliminar tareas completadas
+            </a></p>
+        </div>
+        <div class="col-md-6">
+            <router-view></router-view>
+        </div>
+    </div>
 </template>
 
 <script>
-import ListItem from './ListItem'
+import store from '../../store'
+import TaskItem from './ListItem'
 
 export default {
     components: {
-        ListItem
+        'task-item': TaskItem
     },
-    props: ['tasks'],
-    methods: {
-        deleteTask(index) {
-            const position = this.tasks.map(el => el.id).indexOf(index)
-            this.tasks.splice(position, 1)
-        },
+    data() {
+        return {
+            new_task: '',
+            tasks: store.state.tasks
+        }
     },
     computed: {
         hasPendingTasks() {
             return this.tasks.some(task => task.pending)
+        }
+    },
+    methods: {
+        createTask(task) {
+            this.tasks.push(task)
+        },
+        deleteCompleted() {
+            this.tasks = this.tasks.filter(task => task.pending);
         }
     }
 }
@@ -44,5 +59,3 @@ export default {
         color: #41b883;
     }
 </style>
-
-
