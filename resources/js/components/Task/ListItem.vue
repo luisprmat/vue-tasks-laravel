@@ -32,8 +32,7 @@
 </template>
 
 <script>
-import Icon from './Icon'
-import EventBus from '../event-bus'
+import Icon from '../Icon'
 
 export default {
     components: {

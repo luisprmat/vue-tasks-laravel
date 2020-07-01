@@ -3,22 +3,22 @@
     <h2 :class="{'subtitle-mark': hasPendingTasks}">Tareas</h2>
 
     <ul class="list-group tasks-list">
-        <app-task v-for="task in tasks"
+        <list-item v-for="task in tasks"
             :task="task"
             :key="task.id"
             @remove="deleteTask"
-        ></app-task>
+        ></list-item>
     </ul>
 </div>
 
 </template>
 
 <script>
-import Task from './Task'
+import ListItem from './ListItem'
 
 export default {
     components: {
-        'app-task': Task
+        ListItem
     },
     props: ['tasks'],
     methods: {

@@ -1,12 +1,8 @@
 <template>
     <div class="container">
-        <app-task-list :tasks="tasks"></app-task-list>
+        <h1>Aprendiendo Vue</h1>
 
-        <p><a @click.prevent="deleteCompleted" href="#" class="btn btn-light">Eliminar tareas completadas</a></p>
-
-        <app-task-form @created="createTask"></app-task-form>
-
-        <!-- <pre class="code pre-scrollable">{{ $data }}</pre> -->
+        <app-tasks></app-tasks>
 
         <footer class="footer">
             <p>&copy; 2020. Luis Parrado. Derechos reservados</p>
@@ -15,43 +11,11 @@
 </template>
 
 <script>
-import TaskList from './components/TaskList'
-import TaskForm from './components/TaskForm'
+import Tasks from './components/Task/Task'
 
 export default {
     components: {
-        'app-task-list': TaskList,
-        'app-task-form': TaskForm
-    },
-    data() {
-        return {
-            new_task: '',
-            tasks: [
-                {
-                    id: 1,
-                    description: 'Aprender Vue.js',
-                    pending: true,
-                },
-                {
-                    id: 2,
-                    description: 'Suscribirse en Styde',
-                    pending: true,
-                },
-                {
-                    id: 4,
-                    description: 'Grabar lección de Vue',
-                    pending: false,
-                }
-            ],
-        }
-    },
-    methods: {
-        createTask(task) {
-            this.tasks.push(task)
-        },
-        deleteCompleted() {
-            this.tasks = this.tasks.filter(task => task.pending);
-        }
+        'app-tasks': Tasks
     }
 }
 </script>
@@ -74,9 +38,5 @@ export default {
             border-top: 1px solid #ccc;
             color: lightslategrey;
         }
-    }
-
-    .code {
-        background-color: lightgray;
     }
 </style>
