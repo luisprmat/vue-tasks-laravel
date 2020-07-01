@@ -3,6 +3,22 @@
         <h2>{{ task.title }}</h2>
 
         <p>{{ task.description }}</p>
+
+        <div class="card bg-light">
+            <div class="card-body">
+                <button @click="toggleTask" class="btn" :class="task.pending ? 'btn-secondary' : 'btn-primary'">
+                    <app-icon img="ok"></app-icon> Completar
+                </button>
+
+                <button class="btn btn-secondary">
+                    <app-icon img="edit"></app-icon> Editar
+                </button>
+
+                <button @click="deleteTask" class="btn btn-secondary">
+                    <app-icon img="trash"></app-icon> Eliminar
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,6 +43,14 @@ export default {
             this.task = store.findTask(this.id)
 
             not_found_unless(this.task)
+        },
+        toggleTask() {
+            store.toggleTask(this.task)
+        },
+        deleteTask() {
+            store.deleteTask(this.id)
+
+            this.$router.replace({ name: 'tasks' })
         }
     }
 }

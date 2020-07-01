@@ -2089,6 +2089,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
@@ -2107,6 +2123,15 @@ __webpack_require__.r(__webpack_exports__);
     findTask: function findTask() {
       this.task = _store__WEBPACK_IMPORTED_MODULE_0__["default"].findTask(this.id);
       not_found_unless(this.task);
+    },
+    toggleTask: function toggleTask() {
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].toggleTask(this.task);
+    },
+    deleteTask: function deleteTask() {
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].deleteTask(this.id);
+      this.$router.replace({
+        name: 'tasks'
+      });
     }
   }
 });
@@ -2188,7 +2213,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Icon */ "./resources/js/components/Icon.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../store */ "./resources/js/store/index.js");
 //
 //
 //
@@ -2202,9 +2227,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    'app-icon': _Icon__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   props: ['task'],
   computed: {
     isActive: function isActive() {
@@ -2224,7 +2246,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push(route);
     },
     toggleStatus: function toggleStatus() {
-      this.task.pending = !this.task.pending;
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].toggleTask(this.task);
     }
   }
 });
@@ -6751,7 +6773,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".list-group-item.task-list-item {\n  display: flex;\n  justify-content: space-between;\n}\n.list-group-item.task-list-item a {\n  text-decoration: none;\n}\n.list-group-item.task-list-item .description {\n  flex: 1;\n  padding: 0 5px;\n}\n.list-group-item.task-list-item.completed, .list-group-item.task-list-item.completed a {\n  color: #999;\n}\n.list-group-item.task-list-item.completed .description {\n  text-decoration: line-through;\n}\n.list-group-item.task-list-item.active a {\n  color: white;\n}", ""]);
+exports.push([module.i, ".list-group-item.task-list-item {\n  display: flex;\n  justify-content: space-between;\n}\n.list-group-item.task-list-item a {\n  text-decoration: none;\n}\n.list-group-item.task-list-item .description {\n  flex: 1;\n  padding: 0 5px;\n}\n.list-group-item.task-list-item.completed, .list-group-item.task-list-item.completed a {\n  color: #999;\n}\n.list-group-item.task-list-item.completed .description {\n  text-decoration: line-through;\n}\n.list-group-item.task-list-item.active a, .list-group-item.task-list-item.active {\n  color: white;\n}", ""]);
 
 // exports
 
@@ -38832,7 +38854,48 @@ var render = function() {
     ? _c("div", [
         _c("h2", [_vm._v(_vm._s(_vm.task.title))]),
         _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.task.description))])
+        _c("p", [_vm._v(_vm._s(_vm.task.description))]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card bg-light" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn",
+                class: _vm.task.pending ? "btn-secondary" : "btn-primary",
+                on: { click: _vm.toggleTask }
+              },
+              [
+                _c("app-icon", { attrs: { img: "ok" } }),
+                _vm._v(" Completar\n            ")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "btn btn-secondary" },
+              [
+                _c("app-icon", { attrs: { img: "edit" } }),
+                _vm._v(" Editar\n            ")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                on: { click: _vm.deleteTask }
+              },
+              [
+                _c("app-icon", { attrs: { img: "trash" } }),
+                _vm._v(" Eliminar\n            ")
+              ],
+              1
+            )
+          ])
+        ])
       ])
     : _vm._e()
 }
@@ -54324,6 +54387,7 @@ window.not_found_unless = function (condition) {
 };
 
 Vue.component('app-component', __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue")["default"]);
+Vue.component('app-icon', __webpack_require__(/*! ./components/Icon.vue */ "./resources/js/components/Icon.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -55034,9 +55098,15 @@ var tasks = [{
   },
   createTask: function createTask(task) {
     task.id = this.state.tasks.length + 1000; //FIX
-    // task.pending = true
 
     this.state.tasks.push(task);
+  },
+  toggleTask: function toggleTask(task) {
+    task.pending = !task.pending;
+  },
+  deleteTask: function deleteTask(id) {
+    var index = this.findTask(id);
+    this.state.tasks.splice(index, 1);
   }
 });
 

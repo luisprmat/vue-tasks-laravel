@@ -38,8 +38,14 @@ export default {
     createTask(task) {
         task.id = this.state.tasks.length + 1000 //FIX
 
-        // task.pending = true
-
         this.state.tasks.push(task)
+    },
+    toggleTask(task) {
+        task.pending = ! task.pending
+    },
+    deleteTask(id) {
+        let index = this.findTask(id)
+
+        this.state.tasks.splice(index, 1)
     }
 }

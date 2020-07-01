@@ -37,6 +37,7 @@ window.not_found_unless = function (condition) {
 }
 
 Vue.component('app-component', require('./App.vue').default);
+Vue.component('app-icon', require('./components/Icon.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
