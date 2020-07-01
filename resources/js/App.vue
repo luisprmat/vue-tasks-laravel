@@ -11,7 +11,9 @@
             </li>
         </ul>
 
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
 
         <footer class="footer">
             <p>&copy; 2020. Luis Parrado. Derechos reservados</p>
