@@ -2055,21 +2055,15 @@ __webpack_require__.r(__webpack_exports__);
   render: function render(h) {
     var _this = this;
 
-    var task = {
-      id: '',
-      title: '',
-      description: '',
-      pending: true
-    };
     return h(_Form__WEBPACK_IMPORTED_MODULE_1__["default"], {
       props: {
         title: 'Nueva tarea',
         action: 'Crear tarea',
-        task: task
+        task: {}
       },
       on: {
-        save: function save(newTask) {
-          _store__WEBPACK_IMPORTED_MODULE_0__["default"].createTask(newTask);
+        save: function save(draft) {
+          var newTask = _store__WEBPACK_IMPORTED_MODULE_0__["default"].createTask(draft);
 
           _this.$router.push({
             name: 'tasks.details',
@@ -2122,22 +2116,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
-  data: function data() {
-    return {
-      task: null
-    };
-  },
-  created: function created() {
-    this.findTask();
-  },
-  watch: {
-    id: 'findTask'
+  computed: {
+    task: function task() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].findTask(this.id);
+    }
   },
   methods: {
-    findTask: function findTask() {
-      this.task = _store__WEBPACK_IMPORTED_MODULE_0__["default"].findTask(this.id);
-      not_found_unless(this.task);
-    },
     toggleTask: function toggleTask() {
       _store__WEBPACK_IMPORTED_MODULE_0__["default"].toggleTask(this.task);
     },
@@ -2175,17 +2159,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
+  computed: {
+    task: function task() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].findTask(this.id);
+    }
+  },
   render: function render(h) {
     var _this = this;
 
-    if (!this.task) {
-      return h('app-spinner', {
-        props: {
-          msg: 'Cargando tarea ...'
-        }
-      });
-    }
-
+    // if (! this.task) {
+    //     return h('app-spinner', {
+    //         props: {
+    //             msg: 'Cargando tarea ...'
+    //         }
+    //     })
+    // }
     return h(_Form__WEBPACK_IMPORTED_MODULE_1__["default"], {
       props: {
         title: 'Editar tarea',
@@ -2205,28 +2193,15 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     });
-  },
-  data: function data() {
-    return {
-      task: null
-    };
-  },
-  created: function created() {
-    this.findTask();
-  },
-  watch: {
-    'id': 'findTask'
-  },
-  methods: {
-    findTask: function findTask() {
-      var _this2 = this;
+  } // methods: {
+  //     findTask() {
+  //         setTimeout(() => {
+  //             this.task = clone(store.findTask(this.id))
+  //             not_found_unless(this.task)
+  //         }, 1000)
+  //     },
+  // }
 
-      setTimeout(function () {
-        _this2.task = clone(_store__WEBPACK_IMPORTED_MODULE_0__["default"].findTask(_this2.id));
-        not_found_unless(_this2.task);
-      }, 1000);
-    }
-  }
 });
 
 /***/ }),
@@ -2312,30 +2287,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    'task-item': _ListItem__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  data: function data() {
-    return {
-      new_task: '',
-      tasks: _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tasks
-    };
-  },
   computed: {
+    tasks: function tasks() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].state.tasks;
+    },
     hasPendingTasks: function hasPendingTasks() {
       return this.tasks.some(function (task) {
         return task.pending;
       });
     }
   },
+  components: {
+    'task-item': _ListItem__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   methods: {
-    createTask: function createTask(task) {
-      this.tasks.push(task);
-    },
     deleteCompleted: function deleteCompleted() {
-      this.tasks = this.tasks.filter(function (task) {
-        return task.pending;
-      });
+      _store__WEBPACK_IMPORTED_MODULE_0__["default"].deleteCompletedTasks();
     }
   }
 });
@@ -54480,7 +54447,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
-/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event-bus */ "./resources/js/event-bus.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -54500,8 +54466,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 
-
-window.EventBus = _event_bus__WEBPACK_IMPORTED_MODULE_1__["default"];
 
 window.not_found = function () {
   console.log("Not found: ".concat(_router__WEBPACK_IMPORTED_MODULE_0__["default"].currentRoute.fullPath));
@@ -55267,22 +55231,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/event-bus.js":
-/*!***********************************!*\
-  !*** ./resources/js/event-bus.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = (new vue__WEBPACK_IMPORTED_MODULE_0___default.a());
-
-/***/ }),
-
 /***/ "./resources/js/router/index.js":
 /*!**************************************!*\
   !*** ./resources/js/router/index.js ***!
@@ -55362,6 +55310,72 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _tasks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tasks */ "./resources/js/store/tasks.js");
+
+
+var state = {
+  tasks: _tasks__WEBPACK_IMPORTED_MODULE_1__["default"]
+};
+new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+  data: state
+});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  findTask: function findTask(id) {
+    var task = this.state.tasks.find(function (task) {
+      return task.id == id;
+    });
+    not_found_unless(this);
+    return task;
+  },
+  createTask: function createTask(_ref) {
+    var title = _ref.title,
+        description = _ref.description;
+    var newTask = {
+      id: this.state.tasks.length + 1000,
+      //FIX
+      title: title,
+      description: description,
+      pending: true
+    };
+    this.state.tasks.push(newTask);
+    return newTask;
+  },
+  toggleTask: function toggleTask(task) {
+    task.pending = !task.pending;
+  },
+  updateTask: function updateTask(id, item) {
+    var index = this.state.tasks.findIndex(function (task) {
+      return task.id == id;
+    });
+    this.state.tasks.splice(index, 1, item);
+  },
+  deleteTask: function deleteTask(id) {
+    var index = this.state.tasks.findIndex(function (task) {
+      return task.id == id;
+    });
+    this.state.tasks.splice(index, 1);
+  },
+  deleteCompletedTasks: function deleteCompletedTasks() {
+    this.state.tasks = this.state.tasks.filter(function (task) {
+      return task.pending;
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/tasks.js":
+/*!*************************************!*\
+  !*** ./resources/js/store/tasks.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 var tasks = [{
   id: 1,
   title: 'Aprender Vue.js',
@@ -55378,36 +55392,7 @@ var tasks = [{
   description: "Es un preprocesador de CSS que le a\xF1ade superpoderes como lo dice la documentaci\xF3n maneja variables y la sintaxis de un lengueje de programaci\xF3n, adem\xE1s que permite modularizar y organizar el c\xF3digo de manera muy eficiente.",
   pending: false
 }];
-/* harmony default export */ __webpack_exports__["default"] = ({
-  state: {
-    tasks: tasks
-  },
-  findTask: function findTask(id) {
-    return this.state.tasks.find(function (task) {
-      return task.id == id;
-    });
-  },
-  createTask: function createTask(task) {
-    task.id = this.state.tasks.length + 1000; //FIX
-
-    this.state.tasks.push(task);
-  },
-  toggleTask: function toggleTask(task) {
-    task.pending = !task.pending;
-  },
-  updateTask: function updateTask(id, item) {
-    var index = this.state.tasks.findIndex(function (task) {
-      return task.id == id;
-    });
-    this.state.tasks.splice(index, 1, item);
-  },
-  deleteTask: function deleteTask(id) {
-    var index = this.state.tasks.findIndex(function (task) {
-      return task.id == id;
-    });
-    this.state.tasks.splice(index, 1);
-  }
-});
+/* harmony default export */ __webpack_exports__["default"] = (tasks);
 
 /***/ }),
 

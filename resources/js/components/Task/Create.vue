@@ -4,22 +4,15 @@ import Form from './Form'
 
 export default {
     render(h) {
-        let task = {
-            id: '',
-            title: '',
-            description: '',
-            pending: true
-        }
-
         return h(Form, {
             props: {
                 title: 'Nueva tarea',
                 action: 'Crear tarea',
-                task
+                task: {}
             },
             on: {
-                save: (newTask) => {
-                    store.createTask(newTask)
+                save: (draft) => {
+                    let newTask = store.createTask(draft)
 
                     this.$router.push({
                         name: 'tasks.details',

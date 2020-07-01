@@ -25,26 +25,20 @@ import store from '../../store'
 import TaskItem from './ListItem'
 
 export default {
-    components: {
-        'task-item': TaskItem
-    },
-    data() {
-        return {
-            new_task: '',
-            tasks: store.state.tasks
-        }
-    },
     computed: {
+        tasks() {
+            return store.state.tasks
+        },
         hasPendingTasks() {
             return this.tasks.some(task => task.pending)
         }
     },
+    components: {
+        'task-item': TaskItem
+    },
     methods: {
-        createTask(task) {
-            this.tasks.push(task)
-        },
         deleteCompleted() {
-            this.tasks = this.tasks.filter(task => task.pending);
+            store.deleteCompletedTasks()
         }
     }
 }

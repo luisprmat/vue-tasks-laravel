@@ -11,6 +11,7 @@
 
 <script>
 import store from '../../store'
+
 export default {
     props: ['task'],
     computed: {

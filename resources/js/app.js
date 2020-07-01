@@ -20,9 +20,6 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import router from './router'
-import EventBus from './event-bus'
-
-window.EventBus = EventBus
 
 window.not_found = function() {
     console.log(`Not found: ${router.currentRoute.fullPath}`)

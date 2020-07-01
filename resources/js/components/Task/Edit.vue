@@ -4,14 +4,19 @@ import Form from './Form'
 
 export default {
     props: ['id'],
-    render(h) {
-        if (! this.task) {
-            return h('app-spinner', {
-                props: {
-                    msg: 'Cargando tarea ...'
-                }
-            })
+    computed: {
+        task() {
+            return store.findTask(this.id)
         }
+    },
+    render(h) {
+        // if (! this.task) {
+        //     return h('app-spinner', {
+        //         props: {
+        //             msg: 'Cargando tarea ...'
+        //         }
+        //     })
+        // }
 
         return h(Form, {
             props: {
@@ -31,25 +36,14 @@ export default {
             }
         })
     },
-    data() {
-        return {
-            task: null
-        }
-    },
-    created() {
-        this.findTask()
-    },
-    watch: {
-        'id': 'findTask'
-    },
-    methods: {
-        findTask() {
-            setTimeout(() => {
-                this.task = clone(store.findTask(this.id))
+    // methods: {
+    //     findTask() {
+    //         setTimeout(() => {
+    //             this.task = clone(store.findTask(this.id))
 
-                not_found_unless(this.task)
-            }, 1000)
-        },
-    }
+    //             not_found_unless(this.task)
+    //         }, 1000)
+    //     },
+    // }
 }
 </script>
