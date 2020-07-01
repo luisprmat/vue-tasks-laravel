@@ -10,7 +10,7 @@
                     <app-icon img="ok"></app-icon> Completar
                 </button>
 
-                <button class="btn btn-secondary">
+                <button @click="editTask" class="btn btn-secondary">
                     <app-icon img="edit"></app-icon> Editar
                 </button>
 
@@ -46,6 +46,12 @@ export default {
         },
         toggleTask() {
             store.toggleTask(this.task)
+        },
+        editTask() {
+            this.$router.push({
+                name: 'tasks.edit',
+                params: { id: this.id }
+            })
         },
         deleteTask() {
             store.deleteTask(this.id)

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import TaskList from '../components/Task/List'
+import TaskEdit from '../components/Task/Edit'
 import Dashboard from '../components/Dashboard'
 import TaskCreate from '../components/Task/Create'
 import TaskDetails from '../components/Task/Details'
@@ -17,7 +18,7 @@ const router = new Router({
             component: Dashboard
         },
         {
-            path: '/to-dos',
+            path: '/tasks',
             component: TaskList,
             children: [
                 {
@@ -37,6 +38,12 @@ const router = new Router({
                     path: 'create',
                     name: 'tasks.create',
                     component: TaskCreate,
+                    props: true
+                },
+                {
+                    path: ':id/edit',
+                    name: 'tasks.edit',
+                    component: TaskEdit,
                     props: true
                 }
             ]
