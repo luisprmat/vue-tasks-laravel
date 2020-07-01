@@ -11,20 +11,23 @@ const router = new Router({
     routes: [
         {
             path: '/',
+            name: 'dashboard',
             component: Dashboard
         },
         {
-            path: '/tasks',
+            path: '/to-dos',
             component: Tasks,
             children: [
                 {
                     path: '',
+                    name: 'tasks',
                     component: {
                         template: `<h2>Por favor selecciona una tarea</h2>`
                     }
                 },
                 {
                     path: ':id',
+                    name: 'tasks.details',
                     component: TaskDetails,
                     props: true
                 }

@@ -2180,7 +2180,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     select: function select() {
-      this.$router.push(this.isActive ? "/tasks" : "/tasks/".concat(this.task.id));
+      var route = this.isActive ? {
+        name: 'tasks'
+      } : {
+        name: 'tasks.details',
+        params: {
+          id: this.task.id
+        }
+      };
+      this.$router.push(route);
     },
     toggleStatus: function toggleStatus() {
       this.task.pending = !this.task.pending;
@@ -38618,7 +38626,11 @@ var render = function() {
               "router-link",
               {
                 staticClass: "nav-link",
-                attrs: { "active-class": "active", exact: "", to: "/" }
+                attrs: {
+                  "active-class": "active",
+                  exact: "",
+                  to: { name: "dashboard" }
+                }
               },
               [_vm._v("Dashboard")]
             )
@@ -38634,7 +38646,7 @@ var render = function() {
               "router-link",
               {
                 staticClass: "nav-link",
-                attrs: { "active-class": "active", to: "/tasks" }
+                attrs: { "active-class": "active", to: { name: "tasks" } }
               },
               [_vm._v("Tareas")]
             )
@@ -38643,7 +38655,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("keep-alive", [_c("router-view")], 1),
+      _c("router-view"),
       _vm._v(" "),
       _vm._m(0)
     ],
@@ -38992,7 +39004,7 @@ var render = function() {
     [
       _c("h2", [_vm._v("Error 404: Página no encontrada")]),
       _vm._v(" "),
-      _c("router-link", { attrs: { to: "/" } }, [
+      _c("router-link", { attrs: { to: { name: "dashboard" } } }, [
         _vm._v("Regresar al dashboard")
       ])
     ],
@@ -55035,17 +55047,20 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: '/',
+    name: 'dashboard',
     component: _components_Dashboard__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: '/tasks',
+    path: '/to-dos',
     component: _components_Task_Tasks__WEBPACK_IMPORTED_MODULE_2__["default"],
     children: [{
       path: '',
+      name: 'tasks',
       component: {
         template: "<h2>Por favor selecciona una tarea</h2>"
       }
     }, {
       path: ':id',
+      name: 'tasks.details',
       component: _components_Task_Details__WEBPACK_IMPORTED_MODULE_4__["default"],
       props: true
     }]

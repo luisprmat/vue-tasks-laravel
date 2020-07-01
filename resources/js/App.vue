@@ -4,16 +4,16 @@
 
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item">
-                <router-link class="nav-link" active-class="active" exact to="/">Dashboard</router-link>
+                <router-link class="nav-link" active-class="active" exact :to="{name: 'dashboard'}">Dashboard</router-link>
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" active-class="active" to="/tasks">Tareas</router-link>
+                <router-link class="nav-link" active-class="active" :to="{name: 'tasks'}">Tareas</router-link>
             </li>
         </ul>
 
-        <keep-alive>
+        <!-- <keep-alive> -->
             <router-view></router-view>
-        </keep-alive>
+        <!-- </keep-alive> -->
 
         <footer class="footer">
             <p>&copy; 2020. Luis Parrado. Derechos reservados</p>
