@@ -8,6 +8,7 @@ import ErrorNotFound from '../components/errors/NotFound'
 Vue.use(Router)
 
 const router = new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
