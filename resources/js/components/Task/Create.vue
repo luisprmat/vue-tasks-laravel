@@ -12,11 +12,13 @@ export default {
             },
             on: {
                 save: (draft) => {
-                    let newTask = store.createTask(draft)
+                    // let newTask = store.dispatch('createTask', draft)
+                    store.dispatch('createTask', draft)
 
                     this.$router.push({
-                        name: 'tasks.details',
-                        params: {id: newTask.id}
+                        // name: 'tasks.details',
+                        name: 'tasks',
+                        // params: {id: newTask.id}
                     })
                 }
             }

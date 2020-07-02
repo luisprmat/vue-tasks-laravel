@@ -6,7 +6,7 @@
                 <router-link :to="{name: 'tasks.create'}">Nueva tarea</router-link>
             </div>
 
-            <ul class="list-group tasks-list">
+            <ul class="list-group tasks-list mb-3">
                 <task-item v-for="task in tasks" :task="task" :key="task.id"></task-item>
             </ul>
 
@@ -22,6 +22,7 @@
 
 <script>
 import store from '../../store'
+// mapState
 import TaskItem from './ListItem'
 
 export default {
@@ -38,7 +39,7 @@ export default {
     },
     methods: {
         deleteCompleted() {
-            store.deleteCompletedTasks()
+            store.dispatch('deleteCompletedTasks')
         }
     }
 }

@@ -29,12 +29,12 @@ export default {
     props: ['id'],
     computed: {
         task() {
-            return store.findTask(this.id)
+            return store.getters.findTask(this.id)
         }
     },
     methods: {
         toggleTask() {
-            store.toggleTask(this.task)
+            store.dispatch('toggleTask', this.task)
         },
         editTask() {
             this.$router.push({
@@ -43,7 +43,7 @@ export default {
             })
         },
         deleteTask() {
-            store.deleteTask(this.id)
+            store.dispatch('deleteTask', this.id)
 
             this.$router.replace({ name: 'tasks' })
         }

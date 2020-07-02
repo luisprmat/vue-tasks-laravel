@@ -1,48 +1,70 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import tasks from './tasks'
 
-let state = {
-    tasks
-}
+Vue.use(Vuex)
 
-new Vue({
-    data: state
-})
-
-export default {
-    state,
-    findTask(id) {
-        let task = this.state.tasks.find(task => task.id == id)
-
-        not_found_unless(this)
-
-        return task
+export default new Vuex.Store({
+    state: {
+        tasks
     },
-    createTask({ title, description }) {
-        let newTask = {
-            id: this.state.tasks.length + 1000, //FIX
-            title, description,
-            pending: true
+    getters: {
+        findTask(state) {
+            return function(id) {
+                let task = state.tasks.find(task => task.id == id)
+
+                not_found_unless(this)
+
+                return task
+            }
+        },
+    },
+    mutations: {
+        createTask(state, newTask) {
+            state.tasks.push(newTask)
+        },
+        updateTask(state, { id, draft }) {
+            let index = state.tasks.findIndex(task => task.id == id)
+
+            state.tasks.splice(index, 1, draft)
+        },
+        toggleTask(state, task) {
+            task.pending = ! task.pending
+        },
+        deleteTask(state, id) {
+            let index = state.tasks.findIndex(task => task.id == id)
+
+            state.tasks.splice(index, 1)
+        },
+        deleteCompletedTasks(state) {
+            state.tasks = state.tasks.filter(task => task.pending);
         }
-
-        this.state.tasks.push(newTask)
-
-        return newTask
     },
-    toggleTask(task) {
-        task.pending = ! task.pending
-    },
-    updateTask(id, item) {
-        let index = this.state.tasks.findIndex(task => task.id == id)
+    actions: {
+        createTask(context, { title, description }) {
+            let newTask = {
+                id: context.state.tasks.length + 1000, //FIX
+                title, description,
+                pending: true
+            }
 
-        this.state.tasks.splice(index, 1, item)
-    },
-    deleteTask(id) {
-        let index = this.state.tasks.findIndex(task => task.id == id)
+            context.commit('createTask', newTask)
 
-        this.state.tasks.splice(index, 1)
-    },
-    deleteCompletedTasks() {
-        this.state.tasks = this.state.tasks.filter(task => task.pending);
+            // return newTask
+        },
+        updateTask(context, payload) {
+            // AJAX...
+            context.commit('updateTask', payload)
+        },
+        toggleTask(context, task) {
+            context.commit('toggleTask', task)
+        },
+        deleteTask(context, id) {
+            // AJAX ...
+            context.commit('deleteTask', id)
+        },
+        deleteCompletedTasks(context) {
+            context.commit('deleteCompletedTasks')
+        }
     }
-}
+})
