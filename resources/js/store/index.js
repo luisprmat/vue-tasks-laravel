@@ -45,17 +45,19 @@ export default new Vuex.Store({
             // AJAX
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    if (title == '') reject('Debes escribir un título')
+                    if (title == '') {
+                        reject('Debes escribir un título')
+                    } else {
+                        let newTask = {
+                            id: context.state.tasks.length + 1000, //FIX
+                            title, description,
+                            pending: true
+                        }
 
-                    let newTask = {
-                        id: context.state.tasks.length + 1000, //FIX
-                        title, description,
-                        pending: true
+                        context.commit('createTask', newTask)
+
+                        resolve(newTask)
                     }
-
-                    context.commit('createTask', newTask)
-
-                    resolve(newTask)
                 }, 1000)
             })
         },
