@@ -8,18 +8,23 @@ export default {
             props: {
                 title: 'Nueva tarea',
                 action: 'Crear tarea',
-                task: {}
+                task: {
+                    title: '',
+                    decription: ''
+                }
             },
             on: {
                 save: (draft) => {
-                    // let newTask = store.dispatch('createTask', draft)
                     store.dispatch('createTask', draft)
-
-                    this.$router.push({
-                        // name: 'tasks.details',
-                        name: 'tasks',
-                        // params: {id: newTask.id}
-                    })
+                        .then(newTask => {
+                            this.$router.push({
+                                name: 'tasks.details',
+                                params: {id: newTask.id}
+                            })
+                        })
+                        .catch(error => {
+                            alert(error)
+                        })
                 }
             }
         })
