@@ -18,7 +18,15 @@ mix.js('resources/js/app.js', 'public/js')
     //     enabled: true
     // });
 
-mix.browserSync({
-    proxy: 'https://vue-tasks.dev',
-    open: false
-});
+/**
+ |--------------------------------------------------------------------------
+ | Settings for run HMR (Hot Module Replacement)
+ |--------------------------------------------------------------------------
+ */
+mix.webpackConfig({
+    devServer: {
+        proxy: {
+            '*': 'http://localhost:8000'
+        }
+    }
+})

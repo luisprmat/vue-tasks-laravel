@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1 mb-4>Aprendiendo Vue</h1>
+        <h1 mb-4>Aprendiendo Vue.js</h1>
 
         <ul class="nav nav-tabs mb-4">
             <li class="nav-item">
